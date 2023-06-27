@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block contenido %}
+
+<style>
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+  
+    .login-container form {
+      margin-top: 40px;
+    }
+  </style>
+  
+
+  <div class="login-container">
+    <h2>Login</h2>
+
+    <form method="POST">
+      {% csrf_token %} {{formulario }}
+      <button type="submit" class="w3-button w3-dark-grey">LOGIN</button>
+    </form>
+  </div>
+  
+
+{% endblock %}

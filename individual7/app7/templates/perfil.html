@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block contenido %} {% load static%}
+<style>
+  .w3-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 100px; /* Puedes ajustar este valor para cambiar la distancia hacia abajo */
+  }
+
+  .w3-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<div class="w3-row">
+  <div class="w3-col w3-third w3-center">
+    <div class="w3-row w3-justify-content">
+      <div class="w3-col w3-third w3-center">
+        <h2>Gracias por colaborar</h2>
+        <!-- <div id="contenedor_img">
+          <img src="{% static 'logo1.png' %}" alt="" width="60px" />
+        </div> -->
+         <div class="w3-panel w3-card w3-padding-16">
+        <table class="w3-table  w3-striped" >
+          <tbody>
+            <tr>
+              <td><h3>Nombre Usuario</h3></td>
+              <td><h3>{{perfil.user.username }}</h3></td>
+            </tr>
+            <tr>
+              <td>Nombre</td>
+              <td>{{perfil.user.first_name }}</td>
+            </tr>
+            <tr>
+              <td>Apellido</td>
+              <td>{{perfil.user.last_name}}</td>
+            </tr>
+            <tr>
+              <td>Correo</td>
+              <td>{{perfil.user.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

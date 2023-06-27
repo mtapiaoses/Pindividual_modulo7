@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+{% block contenido %}
+{% load static%}
+<style>
+    .registro-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+  
+    .registro-container form {
+      margin-top: 40px;
+    }
+  </style>
+  
+
+  <div class="registro-container">
+    <h2>Registro</h2>
+
+    <form method="POST">
+      {% csrf_token %} {{formulario }}
+      <button type="submit" class="w3-button w3-black">REGISTRARSE</button>
+    </form>
+  </div>
+  
+{% endblock %}
