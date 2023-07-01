@@ -18,7 +18,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 <body>
 
 <!-- Links (sit on top) -->
-<div class="w3-top">
+<div class="w3-top w3-sticky">
   <div class="w3-row w3-large w3-light-grey">
     <div class="w3-col s3">
       <a href="/" class="w3-button w3-block">Home</a>
@@ -34,6 +34,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
     </div>
   </div>
 </div>
+
 
 <div class="w3-container w3-center">{% block contenido %} {% endblock %} </div>
   
@@ -80,6 +81,15 @@ function showDivs(n) {
   dots[slideIndex-1].className += " w3-white";
 }
 </script>
-
+{% block scripts %}
+<script>
+  $(document).ready(function() {
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd', // El formato de fecha que deseas utilizar
+      // Otiones adicionales de configuración según tus necesidades
+    });
+  });
+</script>
+{% endblock %}
 </body>
 </html>

@@ -12,28 +12,6 @@ def home(request):
     context = {'clave':'valor'}
     return render(request, 'home.html', context)
 
-# def login(request):
-#     if request.method == 'POST':
-#         formulario = Login(request.POST)
-#         print("estoy en el login, antes de validar")
-
-#         if formulario.is_valid():
-#             username = formulario.cleaned_data['usuario']
-#             password = formulario.cleaned_data['clave']
-
-#             user = authenticate(username=username, password=password)
-#             print(user)
-            
-#             if user is not None:
-#                 login(request, user)
-#                 return render(request, 'perfil.html')
-#                 # return redirect ('/perfil/')
-            
-#             return redirect('/')
-#     else:
-#         formulario = Login()
-#         return render(request, 'login.html' , {'formulario':formulario})
-
 class LoginUsuario(TemplateView):
     def get(self, request, *args, **kwargs):
         formulario = Login()
@@ -57,16 +35,16 @@ class LoginUsuario(TemplateView):
 #                 return render(request, 'perfil.html')
                   return redirect ('/perfil/')
             print("a apunto de salir al perfil")
-        return redirect('/')
+        return redirect('/perfil/')
 
 
 
 def perfilp(request):
-    print("entre al perfil")
-    perfil = Perfil.objects.get(user_id=request.user.id)
-    print("dsps del perfil")
-    context = {'perfil':perfil}
-    return render(request, 'perfil.html',context)
+    print
+    perfil = Perfil.objects.get(user=request.user)
+    tareas = perfil.tareas.all()
+    context = {'tareas': tareas}
+    return render(request, 'perfil.html', context)
 
 def registro(request):
     if request.method == 'POST':
@@ -93,3 +71,7 @@ def registro(request):
         formulario = Registro()
         context = {'formulario':formulario}
         return render(request, 'registro.html', context)
+    
+def detalle_tarea(request,):
+    return render(request,"tarea.html")
+

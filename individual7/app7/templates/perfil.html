@@ -1,10 +1,12 @@
-{% extends 'base.html' %} {% block contenido %} {% load static%}
+{% extends 'base.html' %} 
+{% block contenido %}
+{% load static %}
+
 <style>
   .w3-row {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 100px; /* Puedes ajustar este valor para cambiar la distancia hacia abajo */
   }
 
   .w3-col {
@@ -17,35 +19,57 @@
 
 <div class="w3-row">
   <div class="w3-col w3-third w3-center">
-    <div class="w3-row w3-justify-content">
-      <div class="w3-col w3-third w3-center">
-        <h2>Gracias por colaborar</h2>
-        <!-- <div id="contenedor_img">
-          <img src="{% static 'logo1.png' %}" alt="" width="60px" />
-        </div> -->
-         <div class="w3-panel w3-card w3-padding-16">
-        <table class="w3-table  w3-striped" >
-          <tbody>
-            <tr>
-              <td><h3>Nombre Usuario</h3></td>
-              <td><h3>{{perfil.user.username }}</h3></td>
-            </tr>
-            <tr>
-              <td>Nombre</td>
-              <td>{{perfil.user.first_name }}</td>
-            </tr>
-            <tr>
-              <td>Apellido</td>
-              <td>{{perfil.user.last_name}}</td>
-            </tr>
-            <tr>
-              <td>Correo</td>
-              <td>{{perfil.user.email }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="w3-row">
+      <div class="w3-col w3-center">
+        <div class="w3-panel w3-card w3-padding-16" style="margin-top: 20px;">
+          <table class="w3-table w3-striped w3-bordered">
+            <tbody>
+              <tr>
+                <td><h3>Nombre Usuario</h3></td>
+                <td><h3>{{ user.username }}</h3></td>
+              </tr>
+              <tr>
+                <td>Nombre</td>
+                <td>{{ user.first_name }}</td>
+              </tr>
+              <tr>
+                <td>Apellido</td>
+                <td>{{ user.last_name }}</td>
+              </tr>
+              <tr>
+                <td>Correo</td>
+                <td>{{ user.email }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <br />
+        <table class="w3-table w3-striped w3-bordered">
+          <button class="w3-button w3-green"><a href="/tarea/">Agregar Tarea</a></button>
+          <thead class="w3-black">
+            <tr>
+              <th>TITULO</th>
+              <th>CONTENIDO</th>
+              <th>FECHA_PUBLICACIÓN</th>
+              <th>FECHA_VENCIMIENTO</th>
+              <th>ESTADO</th>
+              <th>CATEGORIA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in tareas %}
+            <tr>
+              <td>{{ x.titulo }}</td>
+              <td>{{ x.contenido }}</td>
+              <td>{{ x.fecha_publicacion }}</td>
+              <td>{{ x.fecha_vencimiento }}</td>
+              <td>{{ x.estado.estado }}</td>
+              <td>{{ x.categorias.nombre }}</td>
+              <td><button class="w3-button w3-blue"><a href="/">VER</a></button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
