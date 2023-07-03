@@ -5,22 +5,22 @@ import uuid
 
 class Estado(models.Model):
     estado_choice = (
-        ('P', 'Pendiente'),
-        ('E', 'En proceso'),
-        ('C', 'Completado'),
+        ('Pendiente', 'Pendiente'),
+        ('En proceso', 'En proceso'),
+        ('Completado', 'Completado'),
     )
-    estado = models.CharField(max_length=1, choices=estado_choice)
+    estado = models.CharField(max_length=20, choices=estado_choice)
 
     def __str__(self):
-        return f"Objeto {self.pk} - Estado: {self.get_estado_display()}"
+        return f"Estado: {self.get_estado_display()}"
 
 class Categoria(models.Model):
     CATEGORIA_CHOICES = (
-        ('T', 'Trabajo'),
-        ('H', 'Hogar'),
-        ('C', 'Casa'),
+        ('Casa', 'Casa'),
+        ('Trabajo', 'Trabajo'),
+        ('Estudio', 'Estudio'),
     )
-    nombre = models.CharField(max_length=1, choices=CATEGORIA_CHOICES)
+    nombre = models.CharField(max_length=20, choices=CATEGORIA_CHOICES)
 
     def __str__(self):
         return f"{self.get_nombre_display()}"
@@ -32,7 +32,7 @@ class Tareas(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField(blank=True, null=True)
     fecha_vencimiento = models.DateTimeField(blank=True, null=True)
-    autor = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     categorias = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
