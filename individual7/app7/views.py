@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
@@ -85,33 +86,6 @@ def detalle_tarea(request,):
     #return render(request,"tarea.html")
     pass
 
-# def crear_tarea(request):
-#     if request.method == 'POST':
-#         form = TareaForm(request.POST)
-#         if form.is_valid():
-        
-#             print("estoy creando la tareas")
-#             tarea = TareaForm(
-#                  titulo=form.cleaned_data['titulo'],
-#                  descripcion=form.cleaned_data['descripcion'],
-#                  fecha_publicacion=form.cleaned_data['fecha_publicacion'],
-#                  fecha_vencimiento=form.cleaned_data['fecha_vencimiento'],
-#                  estado=form.cleaned_data['estado'],
-#                  categoria=form.cleaned_data['categoria']
-#              )
-#             tarea.save()
-#             print("estoy guardando la tareas")
-#             return redirect('/perfil/')  # Redirecciona a la página de perfil después de crear la tarea
-#     else:
-#         form = TareaForm()
-    
-#     return render(request, 'edicion_tarea.html', {'form': form})
-
-
-#from app7.models import Estado
-
-# ...
-
 def crear_tarea(request):
     if request.method == 'POST':
         form = TareaForm(request.POST)
@@ -124,7 +98,6 @@ def crear_tarea(request):
             estado_choice = form.cleaned_data['estado']
             categoria_choice = form.cleaned_data['categoria']
             categoria = Categoria.objects.get(nombre=categoria_choice)
-            
             # Obtener la instancia del modelo Estado según el valor seleccionado
             estado = Estado.objects.get(estado=estado_choice)
             perfil = Perfil.objects.get(user_id=request.user.id)
@@ -140,21 +113,51 @@ def crear_tarea(request):
                 categorias=categoria,
                 autor=user
             )
-            
             tarea.save()
-            
             perfil.tareas.add(tarea)  
-            print(type(perfil.tareas))
+            print("type(perfil.tareas)")
             perfil.save() 
     
-       
-             
-
-
             return redirect('/perfil/')
     else:
         form = TareaForm()
     
-    return render(request, 'edicion_tarea.html', {'form': form})
+    return render(request, 'creacion_tarea.html', {'form': form})
 
 
+def editar_tarea(request, tarea_id):
+   
+    tarea = Tareas.objects.get(id = tarea_id)
+    
+    if request.method == 'POST':
+        form = TareaForm(request.POST)
+        if form.is_valid():
+            # Obtener los datos del formulario
+            titulo = form.cleaned_data['titulo']
+            descripcion = form.cleaned_data['descripcion']
+            fecha_publicacion = form.cleaned_data['fecha_publicacion']
+            fecha_vencimiento = form.cleaned_data['fecha_vencimiento']
+            estado_choice = form.cleaned_data['estado']
+            categoria_choice = form.cleaned_data['categoria']
+            # Actualizar los campos de la tarea
+            tarea.titulo = titulo
+            tarea.contenido = descripcion
+            tarea.fecha_publicacion = fecha_publicacion
+            tarea.fecha_vencimiento = fecha_vencimiento
+            tarea.estado = Estado.objects.get(estado=estado_choice)
+            tarea.categorias = Categoria.objects.get(nombre=categoria_choice)
+            tarea.save()
+            
+            return redirect('/perfil/')
+    else:
+        # Prellenar el formulario con los datos de la tarea existente
+        form = TareaForm(initial={
+            'titulo': tarea.titulo,
+            'descripcion': tarea.contenido,
+            'fecha_publicacion': tarea.fecha_publicacion,
+            'fecha_vencimiento': tarea.fecha_vencimiento,
+            'estado': tarea.estado.estado,
+            'categoria': tarea.categorias.nombre
+        })
+    
+    return render(request, 'edicion_tarea.html', {'form': form, 'id': id})

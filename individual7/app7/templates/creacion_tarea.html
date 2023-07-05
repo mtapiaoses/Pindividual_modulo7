@@ -21,27 +21,26 @@
     gap: 10px;
   }
 </style>
-
+<!-- <div class="w3-container w3-center">{% block contenido %} {% endblock %} </div> -->
 <div class="card">
     <div class="card-header">
-        <button type="button" class="btn btn-outline-primary">Editar<i class="bi bi-pencil"></i></button>
+        <button type="button" class="btn btn-outline-primary"><a href="/editar-tarea/{{tarea.id}}">Editar</a><i class="bi bi-pencil"></i></button>
         <button type="button" class="btn btn-outline-primary">Eliminar<i class="bi bi-trash"></i></button>
         <button type="button" class="btn btn-outline-primary">Completar<i class="bi bi-check2"></i></button>
         <button type="button" class="btn btn-outline-primary"><a href="/perfil/">Retornar</a><i class="bi bi-arrow-return-left"></i></button>
       </div>
       
   <div class="card-body">
-    <h5 class="card-title">Edición Tarea Pendiente</h5>
+    <h5 class="card-title">Nueva Tarea Pendiente</h5>
     <form method="POST">
-       {% csrf_token %}
+      {% csrf_token %}
       {{ form.as_p }}
-       
+      
       <div class="form-group mt-3">
-        <button type="submit" class="btn btn-primary">Guardar Cambio</button>
+        <button type="submit" class="btn btn-primary">Guardar Tarea</button>
       </div>
     </form>
   </div>
 </div>
 
 {% endblock %}
-
