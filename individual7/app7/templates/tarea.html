@@ -1,99 +1,94 @@
-{% extends 'base.html' %} {% block contenido %} {% load static%}
+{% extends 'base.html' %}
+{% block contenido %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
 
 <style>
   .card {
-    justify-content: center;
     margin-top: 50px;
-  }
-
-  .card {
-    flex-direction: column;
-    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .card-header {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin: 20px 0;
+  }
+
+  .table {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-top: none;
+  }
+
+  .table td {
+    border-top: none;
   }
 </style>
 
-<div class="card">
+<div class="container">
+  <div class="card">
     <div class="card-header">
-        <button type="button" class="btn btn-outline-primary">Editar<i class="bi bi-pencil"></i></button>
-        <button type="button" class="btn btn-outline-primary">Eliminar<i class="bi bi-trash"></i></button>
-        <button type="button" class="btn btn-outline-primary">Completar<i class="bi bi-check2"></i></button>
-        <button type="button" class="btn btn-outline-primary"><a href="/perfil/">Retornar</a><i class="bi bi-arrow-return-left"></i></button>
-      </div>
-      
-  <div class="card-body">
-    <h5 class="card-title">Nueva Tarea Pendiente</h5>
-    <form>
-      <div class="form-group">
-        <label for="titulo">Título:</label>
-        <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título de la tarea">
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Contenido:</label>
-        <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese una descripción de la tarea"></textarea>
-      </div>
-      
-      <fieldset>
-        <legend>Fecha</legend>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="fechaPublicacion">Fecha de Publicación:</label>
-              <input type="date" class="form-control" id="fechaPublicacion">
-            </div>
-          </div>
-          
-          <div class="col">
-            <div class="form-group">
-              <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-              <input type="date" class="form-control" id="fechaVencimiento">
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      
-      <fieldset>
-        <legend>Detalles</legend>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="estado">Estado:</label>
-              <select class="form-control" id="estado">
-                <option value="estado1">Estado 1</option>
-                <option value="estado2">Estado 2</option>
-                <option value="estado3">Estado 3</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="col">
-            <div class="form-group">
-              <label for="categoria">Categoría:</label>
-              <select class="form-control" id="categoria">
-                <option value="categoria1">Categoría 1</option>
-                <option value="categoria2">Categoría 2</option>
-                <option value="categoria3">Categoría 3</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      
-      <div class="form-group mt-3"> <!-- Agrega la clase "mt-3" para un margen superior de 3 -->
-        <button type="submit" class="btn btn-primary">Guardar Tarea</button>
-      </div>
-    </form>
+      <a href="/editar-tarea/{{ tarea.id }}" class="btn btn-primary">Editar</a>
+      <a href="/perfil/" class="btn btn-secondary">Retornar</a>
+    </div>
+    <div class="card-body">
+      <h2>Detalles de la tarea</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Título</th>
+            <td>{{ tarea.titulo }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Contenido</th>
+            <td>{{ tarea.contenido }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Fecha de Publicación</th>
+            <td>{{ tarea.fecha_publicacion }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Fecha de Vencimiento</th>
+            <td>{{ tarea.fecha_vencimiento }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Estado</th>
+            <td>{{ tarea.estado }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Categoría</th>
+            <td>{{ tarea.categorias }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Observaciones</th>
+            <td>{{ tarea.observaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>  
   </div>
 </div>
 
 {% endblock %}
+
+
+
+
 
 
 

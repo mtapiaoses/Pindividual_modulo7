@@ -105,6 +105,7 @@
             <th>Fecha de Vencimiento</th>
             <th>Estado</th>
             <th>Categoría</th>
+            <th>Observaciones</th>
             
           </tr>
         </thead>
@@ -117,11 +118,17 @@
             <td>{{ x.fecha_vencimiento }}</td>
             <td>{{ x.estado }}</td>
             <td>{{ x.categorias }}</td>
-            <td><button class="w3-button"><a href="/editar-tarea/{{x.id}}">Ver</a></button></td>
+            <td>{{ x.observaciones }}</td>
+            <td><button class="w3-button"><a href="/tarea/{{x.id}}">Ver</a></button></td>
+            <td><button class="w3-button"><a href="/completar-tarea/{{ x.id }}">Completar</a></button></td>
+            <td><button class="w3-button"><a href="/eliminar-tarea/{{ x.id }}">Eliminar</a></button></td>
+
+            
           </tr>
           {% endfor %}
         </tbody>
       </table>
+      
     </div>
   </div>
 </div>

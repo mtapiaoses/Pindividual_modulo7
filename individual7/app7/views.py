@@ -82,9 +82,10 @@ def registro(request):
         context = {'formulario':formulario}
         return render(request, 'registro.html', context)
     
-def detalle_tarea(request,):
-    #return render(request,"tarea.html")
-    pass
+def detalle_tarea(request, tarea_id):
+    tarea = Tareas.objects.get(id=tarea_id)
+    return render(request, 'tarea.html', {'tarea': tarea})
+    #pass
 
 def crear_tarea(request):
     if request.method == 'POST':
@@ -114,11 +115,14 @@ def crear_tarea(request):
                 autor=user
             )
             tarea.save()
+            tarea_id = tarea.id
             perfil.tareas.add(tarea)  
             print("type(perfil.tareas)")
             perfil.save() 
     
-            return redirect('/perfil/')
+            #return redirect('/perfil/')
+            return redirect('detalle_tarea', tarea_id=tarea_id)
+
     else:
         form = TareaForm()
     
@@ -126,9 +130,8 @@ def crear_tarea(request):
 
 
 def editar_tarea(request, tarea_id):
-   
-    tarea = Tareas.objects.get(id = tarea_id)
-    
+    tarea = Tareas.objects.get(id=tarea_id)
+
     if request.method == 'POST':
         form = TareaForm(request.POST)
         if form.is_valid():
@@ -139,6 +142,8 @@ def editar_tarea(request, tarea_id):
             fecha_vencimiento = form.cleaned_data['fecha_vencimiento']
             estado_choice = form.cleaned_data['estado']
             categoria_choice = form.cleaned_data['categoria']
+            observaciones = form.cleaned_data['observaciones']
+
             # Actualizar los campos de la tarea
             tarea.titulo = titulo
             tarea.contenido = descripcion
@@ -146,8 +151,9 @@ def editar_tarea(request, tarea_id):
             tarea.fecha_vencimiento = fecha_vencimiento
             tarea.estado = Estado.objects.get(estado=estado_choice)
             tarea.categorias = Categoria.objects.get(nombre=categoria_choice)
+            tarea.observaciones = observaciones
             tarea.save()
-            
+
             return redirect('/perfil/')
     else:
         # Prellenar el formulario con los datos de la tarea existente
@@ -157,7 +163,26 @@ def editar_tarea(request, tarea_id):
             'fecha_publicacion': tarea.fecha_publicacion,
             'fecha_vencimiento': tarea.fecha_vencimiento,
             'estado': tarea.estado.estado,
-            'categoria': tarea.categorias.nombre
+            'categoria': tarea.categorias.nombre,
+            'observaciones': tarea.observaciones
         })
-    
-    return render(request, 'edicion_tarea.html', {'form': form, 'id': id})
+
+    return render(request, 'edicion_tarea.html', {'form': form, 'tarea_id': tarea_id})
+
+def eliminar_tarea(request, tarea_id):
+    print("eliminar")
+    tarea = Tareas.objects.get(id=tarea_id)
+    tarea.delete()
+    return redirect('/perfil/')
+
+def completar_tarea(request, tarea_id):
+    tarea = Tareas.objects.get(id=tarea_id)
+    tarea.estado = Estado.objects.get(estado='Completado')
+    tarea.save()
+    return redirect('/perfil/')
+
+def logout_view(request):
+
+    print('logout')
+    logout(request)
+    return redirect('/')

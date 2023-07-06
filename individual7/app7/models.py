@@ -35,6 +35,7 @@ class Tareas(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     categorias = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    observaciones = models.TextField(blank=True, null=True)
 
 
     def publicar(self):

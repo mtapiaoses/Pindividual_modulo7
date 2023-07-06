@@ -1,47 +1,31 @@
 {% extends 'base.html' %}
 {% block contenido %}
-{% load static %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
 
 <style>
   .card {
-    justify-content: center;
     margin-top: 50px;
-  }
-
-  .card {
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .card-header {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
   }
 </style>
 
 <div class="card">
-    <div class="card-header">
-        <button type="button" class="btn btn-outline-primary">Editar<i class="bi bi-pencil"></i></button>
-        <button type="button" class="btn btn-outline-primary">Eliminar<i class="bi bi-trash"></i></button>
-        <button type="button" class="btn btn-outline-primary">Completar<i class="bi bi-check2"></i></button>
-        <button type="button" class="btn btn-outline-primary"><a href="/perfil/">Retornar</a><i class="bi bi-arrow-return-left"></i></button>
-      </div>
-      
+  <div class="card-header d-flex justify-content-end gap-2">
+    <a href="/editar-tarea/{{tarea.id}}" class="btn btn-outline-primary">Editar<i class="bi bi-pencil"></i></a>
+    <a href="/perfil/" class="btn btn-outline-primary">Retornar<i class="bi bi-arrow-return-left"></i></a>
+  </div>
   <div class="card-body">
     <h5 class="card-title">Edición Tarea Pendiente</h5>
     <form method="POST">
-       {% csrf_token %}
+      {% csrf_token %}
       {{ form.as_p }}
-       
       <div class="form-group mt-3">
         <button type="submit" class="btn btn-primary">Guardar Cambio</button>
       </div>
     </form>
   </div>
 </div>
-
 {% endblock %}
+
+
 

@@ -17,7 +17,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 </head>
 <body>
 
-<!-- Links (sit on top) -->
+<!-- Navbar -->
 <div class="w3-top w3-sticky">
   <div class="w3-row w3-large w3-light-grey">
     <div class="w3-col s3">
@@ -30,27 +30,26 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
       <a href="/login/" class="w3-button w3-block">Login</a>
     </div>
     <div class="w3-col s3">
-      <a href="/login/" class="w3-button w3-block">Logout</a>
+      <a href="/logout_view/" class="w3-button w3-block">Logout</a>
     </div>
   </div>
 </div>
 
-
-<div class="w3-container w3-center">{% block contenido %} {% endblock %} </div>
-  
+<!-- Content -->
+<div class="w3-container w3-center">
+  {% block contenido %} {% endblock %}
+</div>
 
 <!-- Footer -->
-
 <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
   <h4>Encuentranos en:</h4>
   <div class="w3-xlarge w3-section">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <a href="#" class="fa fa-facebook-official w3-hover-opacity"></a>
+    <a href="#" class="fa fa-instagram w3-hover-opacity"></a>
+    <a href="#" class="fa fa-twitter w3-hover-opacity"></a>
+    <a href="#" class="fa fa-linkedin w3-hover-opacity"></a>
   </div>
 </footer>
-
 
 <script>
 // Slideshow
@@ -81,6 +80,7 @@ function showDivs(n) {
   dots[slideIndex-1].className += " w3-white";
 }
 </script>
+
 {% block scripts %}
 <script>
   $(document).ready(function() {
