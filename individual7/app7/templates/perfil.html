@@ -100,6 +100,8 @@
         <thead>
           <tr>
             <th>Título</th>
+            <th>Asignado a</th>
+      <th>Prioridad</th>
             <th>Contenido</th>
             <th>Fecha de Publicación</th>
             <th>Fecha de Vencimiento</th>
@@ -113,6 +115,9 @@
           {% for x in tareas %}
           <tr>
             <td>{{ x.titulo }}</td>
+            <td>{{ x.asignado_a }}</td>
+            <td>{{ x.prioridad }}</td>
+
             <td>{{ x.contenido }}</td>
             <td>{{ x.fecha_publicacion }}</td>
             <td>{{ x.fecha_vencimiento }}</td>

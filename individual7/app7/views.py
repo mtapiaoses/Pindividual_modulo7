@@ -104,6 +104,8 @@ def crear_tarea(request):
             perfil = Perfil.objects.get(user_id=request.user.id)
             user = User.objects.get(id=request.user.id)
             print(f" CATEGORIA : {categoria.nombre}")
+
+            asignado_a = form.cleaned_data['asignado_a']
             
             tarea = Tareas(
                 titulo=titulo,
@@ -112,7 +114,8 @@ def crear_tarea(request):
                 fecha_vencimiento=fecha_vencimiento,
                 estado=estado,
                 categorias=categoria,
-                autor=user
+                autor=user,
+                
             )
             tarea.save()
             tarea_id = tarea.id

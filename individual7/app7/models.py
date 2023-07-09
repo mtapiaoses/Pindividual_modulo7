@@ -25,17 +25,31 @@ class Categoria(models.Model):
     def __str__(self):
         return f"{self.get_nombre_display()}"
 
+class Prioridad(models.Model):
+    PRIORIDAD_CHOICES = (
+        ('Alta', 'Alta'),
+        ('Media', 'Media'),
+        ('Baja', 'Baja'),
+    )
+    prioridad = models.CharField(max_length=10, choices=PRIORIDAD_CHOICES, null=True)
+
+    def __str__(self):
+        return f"{self.prioridad}"
+
 
 class Tareas(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     titulo = models.CharField(max_length=200)
+    asignado_a = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tareas_asignadas', null=True)
+    prioridad = models.ForeignKey(Prioridad, on_delete=models.CASCADE, null=True)
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField(blank=True, null=True)
     fecha_vencimiento = models.DateTimeField(blank=True, null=True)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tareas_creadas')
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     categorias = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     observaciones = models.TextField(blank=True, null=True)
+    
 
 
     def publicar(self):
@@ -44,6 +58,8 @@ class Tareas(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
     
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -54,3 +70,4 @@ class Perfil(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name}|{self.user.last_name}"
+    
